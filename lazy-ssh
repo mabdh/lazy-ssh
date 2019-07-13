@@ -2,7 +2,7 @@
 # kv-bash library https://github.com/damphat/kv-bash
 ####
 # Avoiding dependencies, embeding kv-bash here
-# ABOUT kv-bash: 
+# ABOUT kv-bash:
 #    key/value dabatase
 #    database store in HOME directory
 #    each user has 1 database
@@ -21,7 +21,7 @@
 #    kvlist                  # list all current key/value pairs
 #    kvclear                 # clear database
 #
-# EXAMPLES: 
+# EXAMPLES:
 #    $ source ./kv-bash
 #    $ kvset user mr.bob
 #    $ kvset pass abc@123
@@ -49,20 +49,20 @@ KV_USER_DIR="$HOME/.lazy-ssh"
 
 # print to stderr, red color
 kv_echo_err() {
-	echo -e "\e[01;31m$@\e[0m" >&2
+    echo -e "\e[01;31m$@\e[0m" >&2
 }
 
 # Usage: kv_echo_err_box <err-msg> <function-name>
 kv_echo_err_box() {
-	kv_echo_err "  +-------------------------------+"
-	kv_echo_err "  | ERROR: $1"
-	kv_echo_err "  | function: $2"
-	kv_echo_err "  +-------------------------------+"
+    kv_echo_err "  +-------------------------------+"
+    kv_echo_err "  | ERROR: $1"
+    kv_echo_err "  | function: $2"
+    kv_echo_err "  +-------------------------------+"
 }
 
 # Usage: kv_validate_key <key>
 kv_validate_key() {
-	[[ "$1" =~ ^[0-9a-zA-Z._:-]+$  ]]
+    [[ "$1" =~ ^[0-9a-zA-Z._:-]+$  ]]
 }
 
 ########################
@@ -70,28 +70,28 @@ kv_validate_key() {
 ########################
 
 # [[ "${BASH_SOURCE[0]}" != "${0}" ]] || {
-# 	kv_echo_err "  +------------------------------------------------+"
-# 	kv_echo_err "  | FALTAL ERROR: wrong usage :(                   |"
-# 	kv_echo_err "  | You should use this via source                 |"
-# 	kv_echo_err "  |     $ source ./kv-bash                         |"	
-# 	kv_echo_err "  |                                                |"
-# 	kv_echo_err "  | Examples:                                      |"
-# 	kv_echo_err "  |     $ source ./kv-bash                         |"
-# 	kv_echo_err "  |     $ kvset user mr.bob                        |"
-# 	kv_echo_err "  |     $ kvset pass abc@123                       |"
-# 	kv_echo_err "  |     $ kvlist                                   |"
-# 	kv_echo_err "  |       user mr.bob                              |"
-# 	kv_echo_err "  |       pass abc@123                             |"
-# 	kv_echo_err "  |     $ kvget user                               |"
-# 	kv_echo_err "  |       mr.bob                                   |"
-# 	kv_echo_err "  |     $ kvget pass                               |"
-# 	kv_echo_err "  |       abc@123                                  |"
-# 	kv_echo_err "  |     $ kvdel pass                               |"
-# 	kv_echo_err "  |     $ kvget pass                               |"
-# 	kv_echo_err "  |                                                |"
-# 	kv_echo_err "  |     $ kvclear                                  |"
-# 	kv_echo_err "  +------------------------------------------------+"
-# 	exit 1
+#   kv_echo_err "  +------------------------------------------------+"
+#   kv_echo_err "  | FALTAL ERROR: wrong usage :(                   |"
+#   kv_echo_err "  | You should use this via source                 |"
+#   kv_echo_err "  |     $ source ./kv-bash                         |"
+#   kv_echo_err "  |                                                |"
+#   kv_echo_err "  | Examples:                                      |"
+#   kv_echo_err "  |     $ source ./kv-bash                         |"
+#   kv_echo_err "  |     $ kvset user mr.bob                        |"
+#   kv_echo_err "  |     $ kvset pass abc@123                       |"
+#   kv_echo_err "  |     $ kvlist                                   |"
+#   kv_echo_err "  |       user mr.bob                              |"
+#   kv_echo_err "  |       pass abc@123                             |"
+#   kv_echo_err "  |     $ kvget user                               |"
+#   kv_echo_err "  |       mr.bob                                   |"
+#   kv_echo_err "  |     $ kvget pass                               |"
+#   kv_echo_err "  |       abc@123                                  |"
+#   kv_echo_err "  |     $ kvdel pass                               |"
+#   kv_echo_err "  |     $ kvget pass                               |"
+#   kv_echo_err "  |                                                |"
+#   kv_echo_err "  |     $ kvclear                                  |"
+#   kv_echo_err "  +------------------------------------------------+"
+#   exit 1
 # }
 
 ########################
@@ -100,64 +100,64 @@ kv_validate_key() {
 
 # Usage: kvget <key>
 kvget() {
-	key="$1"
-	kv_validate_key "$key" || {
-		kv_echo_err_box 'invalid param "key"' 'kvget()'
-		return 1
-	}
-	VALUE="$([ -f "$KV_USER_DIR/$key" ] && cat "$KV_USER_DIR/$key")"
-	echo "$VALUE"
-	
-	[ "$VALUE" != "" ]
+    key="$1"
+    kv_validate_key "$key" || {
+        kv_echo_err_box 'invalid param "key"' 'kvget()'
+        return 1
+    }
+    VALUE="$([ -f "$KV_USER_DIR/$key" ] && cat "$KV_USER_DIR/$key")"
+    echo "$VALUE"
+
+    [ "$VALUE" != "" ]
 }
 
-# Usage: kvset <key> [value] 
+# Usage: kvset <key> [value]
 kvset() {
-	key="$1"
-	value="$2"
-	kv_validate_key "$key" || {
-		kv_echo_err_box 'invalid param "key"' 'kvset()'
-		return 1
-	}
-	test -d "$KV_USER_DIR" || mkdir "$KV_USER_DIR"
-	echo "$value" > "$KV_USER_DIR/$key"
+    key="$1"
+    value="$2"
+    kv_validate_key "$key" || {
+        kv_echo_err_box 'invalid param "key"' 'kvset()'
+        return 1
+    }
+    test -d "$KV_USER_DIR" || mkdir "$KV_USER_DIR"
+    echo "$value" > "$KV_USER_DIR/$key"
 }
 
 # Usage: kvdel <key>
 kvdel() {
-	key="$1"
-	kv_validate_key "$key" || {
-		kv_echo_err_box 'invalid param "key"' 'kvdel()'
-		return 1
-	}
-	test -f "$KV_USER_DIR/$key" && rm -f "$KV_USER_DIR/$key"
+    key="$1"
+    kv_validate_key "$key" || {
+        kv_echo_err_box 'invalid param "key"' 'kvdel()'
+        return 1
+    }
+    test -f "$KV_USER_DIR/$key" && rm -f "$KV_USER_DIR/$key"
 }
 
 # list all key/value pairs to stdout
 # Usage: kvlist
 kvlist() {
-	for i in "$KV_USER_DIR/"*; do
-		if [ -f "$i" ]; then
-			key="$(basename "$i")"
-			echo "$key" "$(kvget "$key")"
-		fi
-	done 
+    for i in "$KV_USER_DIR/"*; do
+        if [ -f "$i" ]; then
+            key="$(basename "$i")"
+            echo "$key" "$(kvget "$key")"
+        fi
+    done
 }
 
 # list all keys
 kvkeys() {
-	for i in "$KV_USER_DIR/"*; do
-		if [ -f "$i" ]; then
-			key="$(basename "$i")"
-			echo "$key"
-		fi
-	done 
+    for i in "$KV_USER_DIR/"*; do
+        if [ -f "$i" ]; then
+            key="$(basename "$i")"
+            echo "$key"
+        fi
+    done
 }
 
 # clear all key/value pairs in database
 # Usage: kvclear
 kvclear() {
-	rm -rf "$KV_USER_DIR"
+    rm -rf "$KV_USER_DIR"
 }
 
 ####
@@ -166,12 +166,12 @@ _lazy_ssh_config_dir=~/.config/lazy-ssh
 _lazy_ssh_project_dir=~/.lazy-ssh
 
 function _lazy_ssh_usage() {
-  cat <<EOF
+    cat <<EOF
 
 USAGE:
 
-lazy-ssh - Shell function to fuzzy search remote ssh address
-            , connect to it automatically, and copy command to clipboard.
+lazy-ssh - Shell function to store and fuzzy search a remote ssh address locally
+           , connect to it automatically, and copy command to clipboard.
 
 -s    - Set key value of remote name and its address, 'lazy-ssh -s MyRemote-1 192.168.0.1'.
 -l    - List all key value remote name and its address.
@@ -182,91 +182,68 @@ lazy-ssh - Shell function to fuzzy search remote ssh address
 EOF
 }
 
-function _lazy_ssh_get_totp() {
-  secret_key=$1
-  case $TOTP_MODE in
-  oathtool)
-    password=$(oathtool --totp --base32 $secret_key)
-    return 0
-    ;;
-  yubikey)
-    if ! [ -x "$(command -v ykman)" ]; then
-      echo 'Error: ykman tool not installed.' >&2
-      exit 1
-    fi
-    if [ -z "$LAZY_CONNECT_TOTP_QUERY" ]; then
-      echo "Error: LAZY_CONNECT_TOTP_QUERY not set."
-      exit 1
-    else
-      password=$(ykman oath code $LAZY_CONNECT_TOTP_QUERY 2>/dev/null | awk '{print $2}')
-    fi
-    ;;
-  esac
-}
-
 function _lazy_ssh() {
-  remotebox_name=$1
-  # _lazy_ssh_get_totp $2
-  local autofill=$2
+    remotebox_name=$1
+    local autofill=$2
 
-  $(echo "ssh $(cat $_lazy_ssh_config_dir/username)@$(kvget $remotebox_name)" | pbcopy)
-  $(ssh "$(cat $_lazy_ssh_config_dir/username)"@"$(kvget $remotebox_name)")
+    $(echo "ssh $(cat $_lazy_ssh_config_dir/username)@$(kvget $remotebox_name)" | pbcopy)
+    $(ssh "$(cat $_lazy_ssh_config_dir/username)"@"$(kvget $remotebox_name)")
 
 }
 
 function _lazy_set(){
-  key=$1
-  value=$2
-  kvset $key $value
+    key=$1
+    value=$2
+    kvset $key $value
 }
 
 function lazy-ssh() {
-  local OPTIND
-  local autofill="true"
-  mkdir -p $_lazy_ssh_config_dir
+    local OPTIND
+    local autofill="true"
+    mkdir -p $_lazy_ssh_config_dir
 
-  while getopts "shlcuy" opt; do
-    case $opt in
-    c)
-      kvclear
-      return 0
-      ;;
-    h)
-      _lazy_ssh_usage
-      return 0
-      ;;
-    s)
-      _lazy_set $2 $3
-      return 0
-      ;;
-    l)
-      kvlist
-      return 0
-      ;;
-    u)
-      cat $_lazy_ssh_config_dir/username
-      return 0
-      ;;
-    y)
-      echo $2 > $_lazy_ssh_config_dir/username
-      return 0
-      ;;
-    \?)
-      echo "Invalid Option: -$OPTARG."
-      _lazy_ssh_usage
-      return 1
-      ;;
-    :)
-      echo "Option -$OPTARG requires an argument."
-      _lazy_ssh_usage
-      return 1
-      ;;
-    esac
-  done
-  
-  remotebox_name=$(echo "" | kvkeys |
-  fzf --height=10 --ansi --reverse --query "$*" --select-1)
-  [ -z "$remotebox_name" ] || _lazy_ssh "$remotebox_name" "$autofill"
+    while getopts "shlcuy" opt; do
+        case $opt in
+            c)
+                kvclear
+                return 0
+                ;;
+            h)
+                _lazy_ssh_usage
+                return 0
+                ;;
+            s)
+                _lazy_set $2 $3
+                return 0
+                ;;
+            l)
+                kvlist
+                return 0
+                ;;
+            u)
+                cat $_lazy_ssh_config_dir/username
+                return 0
+                ;;
+            y)
+                echo $2 > $_lazy_ssh_config_dir/username
+                return 0
+                ;;
+            \?)
+                echo "Invalid Option: -$OPTARG."
+                _lazy_ssh_usage
+                return 1
+                ;;
+            :)
+                echo "Option -$OPTARG requires an argument."
+                _lazy_ssh_usage
+                return 1
+                ;;
+        esac
+    done
+
+    remotebox_name=$(echo "" | kvkeys |
+                         fzf --height=10 --ansi --reverse --query "$*" --select-1)
+    [ -z "$remotebox_name" ] || _lazy_ssh "$remotebox_name" "$autofill"
 }
 
 lazy-ssh "$@"
