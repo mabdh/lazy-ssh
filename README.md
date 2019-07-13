@@ -18,7 +18,7 @@ brew install fzf
 ### Using Homebrew
 
 ```
-brew tap mabdh/stable
+brew tap mabdh/repo
 brew install lazy-ssh
 ```
 
