@@ -17,17 +17,17 @@ brew install fzf
 
 ### Using Homebrew
 
-<!-- ```
-brew tap thecasualcoder/stable
-brew install lazy-connect
-``` -->
+```
+brew tap mabdh/stable
+brew install lazy-ssh
+```
 
 ### Manual
 
-<!-- ```
-git clone https://github.com/thecasualcoder/lazy-connect.git ~/.lazy-connect
-sudo ln -s ~/.lazy-connect/lazy-connect /usr/local/bin/lazy-connect
-``` -->
+```
+git clone https://github.com/mabdh/lazy-ssh ~/.lazy-ssh
+sudo ln -s ~/.lazy-ssh/lazy-ssh /usr/local/bin/lazy-ssh
+```
 
 ### Usage
 
