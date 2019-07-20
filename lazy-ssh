@@ -187,7 +187,7 @@ function _lazy_ssh() {
     local autofill=$2
 
     $(echo "ssh $(cat $_lazy_ssh_config_dir/username)@$(kvget $remotebox_name)" | pbcopy)
-    $(ssh "$(cat $_lazy_ssh_config_dir/username)"@"$(kvget $remotebox_name)")
+#    $(ssh "$(cat $_lazy_ssh_config_dir/username)"@"$(kvget $remotebox_name)")
 
 }
 

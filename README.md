@@ -1,6 +1,6 @@
 # lazy-ssh
 
-Shell function to store and fuzzy search a remote ssh address locally, connect to it automatically, and copy command to clipboard.
+Shell function to store and fuzzy search a remote ssh address locally, and copy command to clipboard.
 
 Inspired by [lazy-connect](https://github.com/thecasualcoder/lazy-connect) library.
 
