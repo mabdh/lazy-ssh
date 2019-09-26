@@ -242,7 +242,7 @@ function lazy-ssh() {
     done
 
     remotebox_name=$(echo "" | kvkeys |
-                         fzf --height=10 --ansi --reverse --query "$*" --select-1)
+                         fzf --height=100 --ansi --reverse --query "$*" --select-1)
     [ -z "$remotebox_name" ] || _lazy_ssh "$remotebox_name" "$autofill"
 }
 
